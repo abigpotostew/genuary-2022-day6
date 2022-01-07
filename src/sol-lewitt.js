@@ -50,6 +50,16 @@ export const sol852 = (p5, colorScheme) => {
 
     const colors = [colorScheme.primary(), colorScheme.secondary(), colorScheme.tertiary(),colorScheme.trinary()]
     let o = [[0, 0], [1, 0], [0, 1], [1, 1]]
+
+    let orientations = [
+        [[-1,1],[1,1],[1,1],[-1,1]], // diamond
+        [[1,1],[-1,1],[-1,1],[1,1]], // cross
+        [[1,1],[1,1],[1,1],[1,1]], // even
+        [[1,1],[-1,1],[-1,1],[1,1]], // X
+
+    ]
+    let scaleOffset=orientations[Math.floor(p5.random(0,orientations.length-1))]
+
     let w2 = p5.width / 2;
     let h2 = p5.height / 2;
     for (let i = 0; i < o.length; i++) {
@@ -61,28 +71,30 @@ export const sol852 = (p5, colorScheme) => {
         gr.background(cs.primary())
         let points = []
         points.push(0, 0)
-        const num = p5.random(2, 5)
+        const num = p5.random(2, 8)
         const vecNorm = p5.createVector(gr.width, gr.height).normalize()
         const hyp = Math.sqrt(Math.pow(gr.width, 2) + Math.pow(gr.height, 2))
         let last = p5.createVector(0, 0)
         for (let j = 0; j < num; j++) {
             const fj = j / num;
             const next = vecNorm.copy().mult(fj * hyp)
-            points.push(last.x + p5.random() * hyp * (1 / num))
-            points.push(last.y + p5.random() * hyp * (1 / num))
+            const stepx=(p5.random()*.75+.25) * hyp * (1 / num )
+            const stepy=(p5.random()*.75+.25) * hyp * (1 / num )
+            points.push(last.x + stepx)
+            points.push(last.y + stepy)
             last = next
         }
         points.push(gr.width, gr.height)
 
 
-        points = Array.from(getCurvePoints(points))
+        points = Array.from(getCurvePoints(points, .9))
 
         points.push(gr.width, 0)
         points.push(0, 0)
 
         gr.beginShape()
         gr.noStroke()
-        gr.fill(cs.tertiary())
+        gr.fill(cs.secondary())
 
         for (let j = 2; j < points.length; j += 2) {
             const x = points[j]
@@ -99,8 +111,14 @@ export const sol852 = (p5, colorScheme) => {
         gr.line(0, gr.height, gr.width, gr.height)
 
 
-        p5.image(gr, ox, oy)
+        p5.push()
 
+        p5.translate(ox,oy)
+        p5.scale(scaleOffset[i][0],scaleOffset[i][1])
+        let ix = Math.min(scaleOffset[i][0],0)*p5.width/2
+        let iy = Math.min(scaleOffset[i][1],0)*p5.height/2
+        p5.image(gr, ix,iy);//ox, oy)
+        p5.pop()
 
     }
 

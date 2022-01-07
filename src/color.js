@@ -11,10 +11,10 @@ export class ColorScheme {
         this.p5 = p5;
         this._primary = [
             p5.sb.random(360),
-            p5.sb.random(50) + 50,
+            p5.sb.random(25) + 75,
             p5.sb.random(50) + 50,
             1];
-        this._secondary = [(this._primary[0] + 30) % 360, p5.sb.random(100), p5.sb.random(100), 1]
+        this._secondary = [(this._primary[0] + 30) % 360, p5.sb.random(25)+75, p5.sb.random(70)+ 30, 1]
         this._tertiary = [(this._secondary[0] + 90) % 360, p5.sb.random(50)+50, p5.sb.random(50)+50, 1]
         this._trinary = [(this._primary[0] + 60) % 360, p5.sb.random(50)+50, 50+p5.sb.random(50), 1]
     }

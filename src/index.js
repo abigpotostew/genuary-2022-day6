@@ -43,6 +43,10 @@ const sketch = p5 => {
                 exportVideo()
             }
         }
+
+        if(p5.key==='s'){
+            p5.saveCanvas('sketch-d6', 'png')
+        }
     }
 
     p5.draw = () => {
