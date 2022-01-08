@@ -94,7 +94,7 @@ export const sol852 = (p5, colorScheme) => {
 
         gr.beginShape()
         gr.noStroke()
-        gr.fill(cs.secondary())
+        gr.fill(cs.tertiary())
 
         for (let j = 2; j < points.length; j += 2) {
             const x = points[j]

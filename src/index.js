@@ -34,6 +34,10 @@ const sketch = p5 => {
 
     }
 
+    p5.mouseReleased = () => {
+       p5.loop()
+    }
+
     p5.keyPressed = () => {
         if (p5.key === 'r') {
             recording = !recording
